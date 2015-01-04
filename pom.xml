@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+	<groupId>be.tarsosdsp</groupId>
+	<artifactId>tarsosdsp</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>TarsosDSP</name>
+  <description></description>
+  <url>http://0110.be/tags/TarsosDSP</url>
+
+  <developers>
+    <developer>
+      <id>jochen.six</id>
+      <name>Jochen Six</name>
+      <email>@</email>
+      <url>http://0110.be/About</url>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>TarsosDSP License</name>
+      <url>https://github.com/JorenSix/TarsosDSP/blob/master/license.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git://github.com/JorenSix/TarsosDSP</connection>
+  </scm>
+
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/JorenSix/TarsosDSP/issues</url>
+  </issueManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <version.java.source>1.7</version.java.source>
+    <version.java.target>1.7</version.java.target>
+
+		<version.mvn.compiler>3.0</version.mvn.compiler>
+		<version.mvn.ftp>1.0-beta-6</version.mvn.ftp>
+		<version.mvn.deploy>2.4</version.mvn.deploy>
+    <version.mvn.javadoc>2.9.1</version.mvn.javadoc>
+
+    <version.lib.tarsosdsp>1.0.0-SNAPSHOT</version.lib.tarsosdsp>
+    <!-- <version.lib.junit>3.8.1</version.lib.junit> -->
+    <version.lib.junit>4.11</version.lib.junit>
+
+    <version.lib.log4j>1.2.17</version.lib.log4j>
+	</properties>
+
+  <!-- VOCOBOX is deploying TarsosDSP on Jzy3d's Maven repository -->
+  <distributionManagement>
+    <repository>
+      <id>jzy3d-ftp</id>
+      <name>Jzy3d Maven Folder</name>
+      <url>ftp://ftp.cluster013.ovh.net/maven/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>jzy3d-ftp</id>
+      <name>Jzy3d Maven Folder SNAPSHOTS</name>
+      <url>ftp://ftp.cluster013.ovh.net/maven/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${version.lib.junit}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <!-- USING 1.8 JDK, ON MY MAC :
+  export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/"
+-->
+
+  <build>
+      <testSourceDirectory>tests</testSourceDirectory>
+
+    <!-- <pluginManagement> -->
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>add-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>src</source>
+                    <source>jvm</source>
+                    <source>examples</source>
+                  </sources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+              <source>${version.java.source}</source>
+              <target>${version.java.target}</target>
+            </configuration>
+          </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+  		          <version>${version.mvn.compiler}</version>
+                <configuration>
+                    <source>${version.java.source}</source>
+                    <target>${version.java.target}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <version>${version.mvn.javadoc}</version>
+              <!-- <configuration>
+                <stylesheetfile>jzy3d-api/doc/layout.css</stylesheetfile>
+              </configuration> -->
+            </plugin>
+        </plugins>
+    <!-- </pluginManagement> -->
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+          <artifactId>wagon-ftp</artifactId>
+          <version>${version.mvn.ftp}</version>
+      </extension>
+    </extensions>
+  </build>
+</project>
